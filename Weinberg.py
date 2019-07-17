@@ -173,7 +173,7 @@ def checkIdenticalExistingVectors( newgraphs, vectors, v ):
 
 def checkIdenticalNewVectors( graphs, newgraphs, vectors, v ):
     """
-    Checks if there exists a vector not yet generated, corresponding to one of
+    Checks if there exists a vector not generated yet, corresponding to one of
     the graphs from 'newgraphs', that is equal to v (ie, generates code vectors
     of the newgraphs and checks if they are equal to v). If such vector exists,
     it returns True, and else it returns None.
@@ -234,8 +234,7 @@ def eliminateDoubles( graphs ):
 
     return graphsReturned # return graphs with only indices from newgraphs
 
-graphs = [[ [1,2] , [0,2] , [0,1] ],[ [1,2] , [0,2] , [0,1] ]]
-print(eliminateDoubles(graphs))
+
 
 
 
