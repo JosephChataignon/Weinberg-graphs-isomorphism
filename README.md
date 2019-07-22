@@ -27,8 +27,8 @@ Et un graphe "carré" (4 sommets et 4 arêtes formant un carré) est modélisé par: 
 
 ## Fonctions
 Le programme comporte plusieurs fonctions. Celles qui sont directement utiles sont les suivantes:
-- *generateCodeVector*: prenant en argument un graphe, un couple (noeud, branche) de départ du chemin eulérien, et éventuellement une variable sur l'ordre de rotation parmi les branches partant d'un noeud, cette fonction génère le vecteur code correspondant à cette position de départ:
-- *generateCodeMatrix*: prenant en argument un graphe, génère l'ensemble des vecteurs code de ce graphe et les renvoie sous la forme d'une matrice.
+- *generateCodeVector*: prenant en argument un graphe, un couple *(noeud, branche)* de départ du chemin eulérien, et éventuellement un ordre de rotation (horaire ou anti-horaire), cette fonction génère le vecteur code correspondant à cette position de départ.
+- *generateCodeMatrix*: prenant en argument un graphe, renvoie la matrice de tous les vecteurs de ce graphe.
 - *eliminateDoubles*: à partir d'une liste de graphes, renvoie la même liste mais sans graphes isomorphes: lorsque deux graphes sont isomorphes, un seul est gardé.
 
 
@@ -41,7 +41,7 @@ Le programme comporte plusieurs fonctions. Celles qui sont directement utiles so
 This program is an implementation in Python of the algorithm presented by Louis Weinberg in an article published in 1965, "*A Simple and Efficient Algorithm for Determining Isomorphism of Planar Triply Connected Graphs*", available at **ieeexplore.ieee.org/document/1082573** (in english). This algorithm is able to determine if planar triply-connected graphs are isomorphic or not, in polynomial time.
 
 ## How the algorithm works
-This algorithm works by associating, to every graph, vectors that represent an eulerian path going through the whole graph following a precise procedure. A vector exists for every possible branch on which the eulerian path can start, and for the 2 possible rotation directions on the branches of a node (clockwise or counter-clockwise). Therefore it is possible to form a matrix made of these vectors for any graph.
+This algorithm works by associating, to every graph, vectors that represent an eulerian path going through the whole graph following a precise procedure. A vector exists for every possible branch on which the eulerian path can start, and for the 2 possible rotation orders on the branches of a node (clockwise or counter-clockwise). Therefore it is possible to form a matrix made of these vectors for any graph.
 For two graphs A and B, if one of the vectors of A is equal to one of the vectors of B, then A and B are isomorphic (so it is not necessary to generate the full matrix for every graph).
 
 ## Graphs encoding
@@ -55,8 +55,8 @@ And a "square" graph(4 nodes and 4 vertices forming a square) would be ```[ [1,3
 
 ## Functions
 The program has several functions. The directly useful ones are the following:
-- *generateCodeVector*: with, as arguments, a graph, a departure node and branch for the eulerian path, and maybe a variable on the rotation direction in the branches of a node (clockwise or counter-clockwise), this function generates the code vector corresponding to this departure location:
-- *generateCodeMatrix*: with a graph as argument, generates all the code vectors of that graph and returns them as a matrix.
+- *generateCodeVector*: takes as arguments a graph, a node and one of its branches (as departure point for the eulerian path), and possibly a variable on the rotation direction (clockwise or counter-clockwise). This function generates the code vector corresponding to the departure location given as argument.
+- *generateCodeMatrix*: with a graph as argument, returns the full matrix of the vectors of that graph.
 - *eliminateDoubles*: from a list of graphs, returns the same list but without isomorphic graphs: when two graphs are isomorphic, only one is kept.
 
 
