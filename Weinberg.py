@@ -180,25 +180,41 @@ def checkIdenticalNewVectors( graphs, newgraphs, vectors, v ):
     In any case, the vectors generated are stored in 'vectors'.
     """
     for i in newgraphs:
+        # to do: add a valence check before generating vectors
         while True:
+            
             # Get the next vector for graph i
             r,b,reverseOrder = graphBranchFromLabel( graphs[i],len(vectors[i]) )
             if r == -1: # If we already checked all vectors of graph i
                 break
             newVect = generateCodeVector(graphs[i],r,b,reverseOrder)
+            
             # Add it to vectors
             vectors[i].append(newVect)
             # Check if it is equal to v
             if newVect == v:
                 return True
 
+def checkValence( k,newgraphs,nodesValence ):
+    """
+    Returns True if graph k's valence is different from any other new graph's
+    valence, False otherwise.
+    """
+    for i in newgraphs:
+        # check if valences are equal
+        if nodesValence[k] == nodesValence[i]:
+            return False
+    return True
+
 def eliminateDoubles( graphs ):
     """
     Applies the Weinberg algorithm to reduce the size of graphs by eliminating
     a graph when 2 of them are isomorphic.
     """
+    
     # generate the vector of nodes valence and the vector of meshes shapes
     nodesValence = getNodesValence(graphs)
+    
     #meshesShapes = getMeshesShapes(graphs)
     # To do: we still need to find an efficient way to get meshes shapes
     # as is suggested in Weinberg's paper
@@ -209,20 +225,19 @@ def eliminateDoubles( graphs ):
     # for each graph k, we check if it is isomorphic to a previous graph i
     for k in range( 1 , len(graphs) ):
 
-        for i in newgraphs:
-            # check if valences are equal
-            if nodesValence[k] != nodesValence[i]:
-                newgraphs.append(k)
-                break
-
-        else: # if valences are identical, check existing vectors compared to v
+        if checkValence(k,newgraphs,nodesValence):
+            newgraphs.append(k)
+            
+        # if there is at least one graph from newgraphs with same valence as k
+        else:
             v = generateCodeVector(graphs[k],0,0)
+            # check existing vectors compared to v
             if checkIdenticalExistingVectors(newgraphs, vectors, v):
-                break
+                continue
 
-            # if no already generated vectors match with v, add vectors to previously registered graphs
+            # if no already generated vectors match with v, generate vectors to previously registered graphs
             if checkIdenticalNewVectors(graphs, newgraphs, vectors, v):
-                break
+                continue
             else:
                 newgraphs.append(k)
                 vectors[k] = [v]
@@ -232,7 +247,7 @@ def eliminateDoubles( graphs ):
     for i in newgraphs:
         graphsReturned.append(graphs[i])
 
-    return graphsReturned # return graphs with only indices from newgraphs
+    return graphsReturned
 
 
 
