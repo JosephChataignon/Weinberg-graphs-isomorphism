@@ -1,35 +1,35 @@
 **English description below**
 
-*MIT License. Use this code the way you want, and add a star if you find it useful.*
+*MIT License. Use this code the way you want, star it if you find it useful.*
 
-*License MIT. Utilisez ce code comme vous le voulez, ajoutez une étoile si vous le trouvez utile.*
+*License MIT. Utilisez ce code comme vous le voulez, ajoutez une Ã©toile s'il vous est utile.*
 
 
 # Algorithme de Weinberg sur les graphes isomorphes
 
-## Présentation
-Ce programme est une implémentation en Python de l'algorithme présenté par Louis Weinberg dans un article publié en 1965, "*A Simple and Efficient Algorithm for Determining Isomorphism of Planar Triply Connected Graphs*", disponible sur **ieeexplore.ieee.org/document/1082573** (en anglais). Cet algorithme permet de déterminer si des graphes planaires de connexité 3 sont isomorphes ou non, en temps polynomial.
+## PrÃ©sentation
+Ce programme est une implÃ©mentation en Python de l'algorithme prÃ©sentÃ© par Louis Weinberg dans un article publiÃ© en 1965, "*A Simple and Efficient Algorithm for Determining Isomorphism of Planar Triply Connected Graphs*", disponible sur **ieeexplore.ieee.org/document/1082573** (en anglais). Cet algorithme permet de dÃ©terminer si des graphes planaires de connexitÃ© 3 sont isomorphes ou non, en temps polynomial.
 
 ## Fonctionement de l'algorithme
-Cet algorithme consiste à associer à tout graphe des vecteurs code représentant un chemin eulérien parcourant tout le graphe selon une procédure particulière. Il existe un vecteur pour chaque branche de départ possible du chemin eulérien, et pour chaque sens de parcours des branches d'un noeud (horaire ou anti-horaire). On peut donc former une matrice avec ces vecteurs pour chaque graphe.
-Pour deux graphes A et B, si un seul des vecteurs de A a un égal parmi les vecteurs de B, alors A et B sont isomorphes (ainsi il n'est pas nécessaire de générer la matrice entière pour chaque graphe).
+Cet algorithme consiste Ã  associer Ã  tout graphe des vecteurs code reprÃ©sentant un chemin eulÃ©rien parcourant tout le graphe selon une procÃ©dure particuliÃ¨re. Il existe un vecteur pour chaque branche de dÃ©part possible du chemin eulÃ©rien, et pour chaque sens de parcours des branches d'un noeud (horaire ou anti-horaire). On peut donc former une matrice avec ces vecteurs pour chaque graphe.
+Pour deux graphes A et B, si un seul des vecteurs de A a un Ã©gal parmi les vecteurs de B, alors A et B sont isomorphes (ainsi il n'est pas nÃ©cessaire de gÃ©nÃ©rer la matrice entiÃ¨re pour chaque graphe).
 
 ## Encodage des graphes
-Un graphe doit être modélisé par une liste où chaque indice correspond à un noeud du graphe. Le i-ème emplacement de cette liste (correspondant au i-ème noeud) contient une liste des indices des noeuds auxquels le i-ème noeud est relié par une arête.
-Notez qu'ainsi, chaque arête est modélisée deux fois, une fois dans chaque sens. Cela correspond donc à un graphe orienté où chaque arête constitue en fait deux arêtes de sens opposé, ce qui a pour but d'assurer l'existence du chemin eulérien.
+Un graphe doit Ãªtre modÃ©lisÃ© par une liste oÃ¹ chaque indice correspond Ã  un noeud du graphe. Le i-Ã¨me emplacement de cette liste (correspondant au i-Ã¨me noeud) contient une liste des indices des noeuds auxquels le i-Ã¨me noeud est reliÃ© par une arÃªte.
+Notez qu'ainsi, chaque arÃªte est modÃ©lisÃ©e deux fois, une fois dans chaque sens. Cela correspond donc Ã  un graphe orientÃ© oÃ¹ chaque arÃªte constitue en fait deux arÃªtes de sens opposÃ©, ce qui a pour but d'assurer l'existence du chemin eulÃ©rien.
 
-Par exemple, le graphe complet K2 est modélisé par: ```[ [1] , [0] ]```
+Par exemple, le graphe complet K2 est modÃ©lisÃ© par: ```[ [1] , [0] ]```
 
-De même, le graphe complet K3 est modélisé par: ```[ [1,2] , [0,2] , [0,1] ]```
+De mÃªme, le graphe complet K3 est modÃ©lisÃ© par: ```[ [1,2] , [0,2] , [0,1] ]```
 
-Et un graphe "carré" (4 sommets et 4 arêtes formant un carré) est modélisé par: ```[ [1,3] , [0,2] , [1,3] , [0,2] ]```
+Et un graphe "carrÃ©" (4 sommets et 4 arÃªtes formant un carrÃ©) est modÃ©lisÃ© par: ```[ [1,3] , [0,2] , [1,3] , [0,2] ]```
 
 
 ## Fonctions
 Le programme comporte plusieurs fonctions. Celles qui sont directement utiles sont les suivantes:
-- *generateCodeVector*: prenant en argument un graphe, un couple *(noeud, branche)* de départ du chemin eulérien, et éventuellement un ordre de rotation (horaire ou anti-horaire), cette fonction génère le vecteur code correspondant à cette position de départ.
+- *generateCodeVector*: prenant en argument un graphe, un couple *(noeud, branche)* de dÃ©part du chemin eulÃ©rien, et Ã©ventuellement un ordre de rotation (horaire ou anti-horaire), cette fonction gÃ©nÃ¨re le vecteur code correspondant Ã  cette position de dÃ©part.
 - *generateCodeMatrix*: prenant en argument un graphe, renvoie la matrice de tous les vecteurs de ce graphe.
-- *eliminateDoubles*: à partir d'une liste de graphes, renvoie la même liste mais sans graphes isomorphes: lorsque deux graphes sont isomorphes, un seul est gardé.
+- *eliminateDoubles*: Ã  partir d'une liste de graphes, renvoie la mÃªme liste mais sans graphes isomorphes: lorsque deux graphes sont isomorphes, un seul est gardÃ©.
 
 
 
